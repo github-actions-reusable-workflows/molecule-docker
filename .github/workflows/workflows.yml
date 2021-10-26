@@ -7,6 +7,10 @@ on:
         description: 'Docker container distribution name'
         default: 'centos7'
         type: string
+      molecule-scenario:
+        description: 'Molecule scenario name.'
+        default: 'default'
+        type: string
 
 jobs:
   molecule:
@@ -29,7 +33,7 @@ jobs:
 
       - name: Test with molecule
         run: |
-          molecule test
+          molecule test --scenario-name ${{ inputs.molecule-scenario }}
         env:
           ANSIBLE_FORCE_COLOR: '1'
           MOLECULE_DISTRO: ${{ inputs.distro }}
