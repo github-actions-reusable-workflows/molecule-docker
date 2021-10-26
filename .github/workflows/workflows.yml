@@ -11,6 +11,10 @@ on:
         description: 'Molecule scenario name.'
         default: 'default'
         type: string
+      pip-requirements-file:
+        description: 'Path of Pip requirements file'
+        default: 'molecule/requirements.txt'
+        type: string
 
 jobs:
   molecule:
@@ -28,8 +32,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install dependencies
-        run: python3 -m pip install -r molecule/requirements.txt
+      - name: Install Pip requirements
+        run: |
+          pip install -r ${{ inputs.pip-requirements-file }}
 
       - name: Test with molecule
         run: |
