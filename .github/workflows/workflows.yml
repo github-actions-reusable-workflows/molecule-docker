@@ -3,9 +3,9 @@ name: yamllit execution workflow
 on:
   workflow_call:
     inputs:
-      distro:
-        description: 'Docker container distribution name'
-        default: 'centos7'
+      molecule-image:
+        description: 'Molecule image. ex:centos:7,public.ecr.aws/owner/image:tag,ghcr.io/org/repo/image:tag'
+        default: 'centos:7'
         type: string
       molecule-scenario:
         description: 'Molecule scenario name.'
@@ -41,7 +41,7 @@ jobs:
           molecule test --scenario-name ${{ inputs.molecule-scenario }}
         env:
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ inputs.distro }}
+          MOLECULE_IMAGE: ${{ inputs.molecule-image }}
           MOLECULE_NO_LOG: False
           PROFILE_TASKS_SORT_ORDER: 'none'
           PROFILE_TASKS_TASK_OUTPUT_LIMIT: '100'
