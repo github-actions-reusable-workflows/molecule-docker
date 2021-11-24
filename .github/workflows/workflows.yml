@@ -15,14 +15,14 @@ on:
         description: 'Path of Pip requirements file'
         default: 'molecule/requirements.txt'
         type: string
+      python-version:
+        description: 'Python version'
+        default: 3
+        type: string
 
 jobs:
   molecule:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version:
-          - 3.9
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "${{ inputs.python-version }}"
 
       - name: Install Pip requirements
         run: |
