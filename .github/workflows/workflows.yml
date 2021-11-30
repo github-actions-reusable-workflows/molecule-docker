@@ -1,4 +1,4 @@
-name: yamllit execution workflow
+name: Ansible Molecule execution workflow
 
 on:
   workflow_call:
