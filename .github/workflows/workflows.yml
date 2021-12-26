@@ -57,7 +57,7 @@ jobs:
           TZ: 'Asia/Tokyo'
 
       - name: Upload workflow artifacts
-        if: ${{ inputs.artifacts-file-path }} && ${{ inputs.artifacts-file-name }}
+        if: ${{ inputs.artifacts-file-path }}
         uses: actions/upload-artifact@v2
         with:
           name: ${{ inputs.artifacts-file-name }}
