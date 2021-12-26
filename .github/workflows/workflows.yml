@@ -3,6 +3,14 @@ name: Ansible Molecule execution workflow
 on:
   workflow_call:
     inputs:
+      artifacts-file-name:
+        description: 'Workflow artifacts file name'
+        default: ''
+        type: string
+      artifacts-file-path:
+        description: 'Workflow artifacts file path'
+        default: ''
+        type: string
       molecule-image:
         description: 'Molecule image. ex:centos:7,public.ecr.aws/owner/image:tag,ghcr.io/org/repo/image:tag'
         default: 'centos:7'
@@ -47,6 +55,13 @@ jobs:
           PROFILE_TASKS_TASK_OUTPUT_LIMIT: '100'
           PY_COLORS: '1'
           TZ: 'Asia/Tokyo'
+
+      - name: Upload workflow artifacts
+        if: ${{ inputs.artifacts-file-path }} && ${{ inputs.artifacts-file-name }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ inputs.artifacts-file-name }}
+          path: ${{ inputs.artifacts-file-path }}
 
       - name: Show Ansible version
         run: |
